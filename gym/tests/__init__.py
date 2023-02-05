@@ -1,0 +1,9 @@
+from .test_gym_base import TestGymBase, TEST_GYM_BASE_ATHLETE, TEST_GYM_BASE_GYM_OWNER
+from .test_select_favorite_sports import TestSelectFavoriteSports
+from .test_retrieve_gym_base import TestRetrieveGymBase
+from .test_retrieve_gym_complex import TestRetrieveGymComplex
+from .test_retrieve_gym_usage import TestRetrieveGymUsage
+from .test_scheduled_sessions_list import TestScheduledSessionsList
+from .test_send_sms_to_club_contacts import TestSendSMSToClubContacts, TestSendSMSForDiscountToClubContacts
+from .test_create_gym_complex import TestCreateGymComplex
+

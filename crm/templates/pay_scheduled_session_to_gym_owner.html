@@ -1,0 +1,2 @@
+{% load gymtime %}سانس {{ scheduled_session }} از مجموعه ورزشی {{ scheduled_session.gymnasium.gym_complex }} تراکنش به مبلغ {{ transaction.amount }} دریافت کرده، که مربوط به حساب صاحب ورزشگاه {{ scheduled_session.gymnasium.gym_complex.owner }} می‌باشد.
+{% if transaction.amount > 0 %}باید مبلع {{ transaction.amount | absolute }} تومان به ناشر پرداخت شود.{% else %}باید مبلغ {{ transaction.amount | absolute }} تومان از ناشر پس گرفته شود.{% endif %}
