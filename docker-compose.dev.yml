@@ -5,7 +5,6 @@ services:
     container_name: gymtime_backend
     build:
       context: .
-    command: uwsgi --http :8000 --module gymtime_backend.wsgi
     ports:
       - "8000"
     depends_on:

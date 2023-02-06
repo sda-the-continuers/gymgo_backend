@@ -13,3 +13,6 @@ RUN pip install -r requirements.txt
 COPY . .
 
 ENV PYTHONUNBUFFERED 1
+
+COPY ./entrypoint.sh /
+ENTRYPOINT ["sh", "/entrypoint.sh"]
