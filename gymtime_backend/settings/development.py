@@ -204,10 +204,8 @@ KAVENEGAR_VERIFY_TEMPLATE = config('KAVENEGAR_VERIFY_TEMPLATE')
 SMS_EXPIRATION_MINUTES = config('SMS_EXPIRATION_MINUTES', cast=int)
 REFERRAL_CODE_LENGTH = config('REFERRAL_CODE_LENGTH', cast=int)
 
-# CELERY
-CELERY_BROKER_URL = config('CELERY_BROKER_URL', default='amqp://localhost')
-CELERY_RESULT_BACKEND = config('CELERY_RESULT_BACKEND', default='django-db')
-CELERY_CACHE_BACKEND = config('CELERY_CACHE_BACKEND', default='django-cache')
+# Celery
+CELERY_BROKER_URL = config('CELERY_BROKER_URL', default='amqp')
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
@@ -215,21 +213,19 @@ CELERY_TIMEZONE = 'Asia/Tehran'
 CELERY_RESULT_EXPIRES = 3600
 CELERY_CREATE_MISSING_QUEUES = True
 
-# REDIS
-
+# Redis
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": config('REDIS_BACKEND_CACHE_URL'),
+        "LOCATION": f"redis://{config('REDIS_HOST', 'localhost')}:{config('REDIS_PORT', '6379')}/1",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            'PASSWORD': config('REDIS_PASSWORD'),
-            "SOCKET_CONNECT_TIMEOUT": 5,  # seconds
-            "SOCKET_TIMEOUT": 5,  # seconds
+            "PASSWORD": config('REDIS_PASSWORD', ''),
         },
-        "KEY_PREFIX": "DjangoBackend"
+        "KEY_PREFIX": "gymtime"
     }
 }
+
 
 REDIS_URL = config('REDIS_URL')
 

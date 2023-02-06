@@ -12,9 +12,8 @@ app.autodiscover_tasks()
 # CELERY SUBSCRIBES ITS WORKERS TO THESE QUEUES
 # ADD YOUR QUEUES HERE
 app.conf.task_queues = (
-    Queue('high_priority', consumer_arguments={'x-priority': 10}),
-    Queue('mid_priority', consumer_arguments={'x-priority': 5}),
-    Queue('low_priority', consumer_arguments={'x-priority': 1}),
+    Queue('gym'),
+    Queue('sms'),
 )
 
 app.conf.beat_schedule = {
