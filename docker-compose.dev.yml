@@ -1,0 +1,46 @@
+version: '3.7'
+
+services:
+  gymtime_django:
+    build:
+      context: .
+    command: uwsgi --http :8000 --module gymtime_backend.wsgi
+    ports:
+      - "8011:8000"
+    depends_on:
+      - postgres
+      - redis
+      - rabbitmq
+    volumes:
+      - ./:/app
+
+  postgres:
+    container_name: gymtime_gres
+    restart: always
+    image: postgres
+    ports:
+    - "5444:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    volumes:
+    - /home/postgres/gymtime_gres:/var/lib/postgresql/data
+
+  rabbitmq:
+    image: rabbitmq:3.9-management
+    container_name: gymtime_mq
+    ports:
+      - "15673:15672"
+      - "5673:5672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=rabbitmq
+      - RABBITMQ_DEFAULT_PASS=rabbitmq
+    restart: always
+
+  redis:
+    image: "redis:6.2-alpine"
+    container_name: gymtime_redis
+    ports:
+      - "6380:6379"
+    restart: always
