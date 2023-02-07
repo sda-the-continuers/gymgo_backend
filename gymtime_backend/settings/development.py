@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 from datetime import timedelta
 from pathlib import Path
-from decouple import config, RepositoryEnv, Config
+from decouple import config, RepositoryEnv, Config, strtobool
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -26,6 +26,11 @@ jwt_config = Config(RepositoryEnv(JWT_DOTENV_FILE))
 SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+ALLOWED_HOSTS = ['*']
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_HEADERS = ['*']
 
 # Application definition
 
@@ -71,9 +76,9 @@ X_FRAME_OPTIONS = "SAMEORIGIN"
 SILENCED_SYSTEM_CHECKS = ["security.W019"]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -229,8 +234,6 @@ CACHES = {
 
 REDIS_URL = config('REDIS_URL')
 
-ALLOWED_HOSTS = ['*']
-CORS_ORIGIN_ALLOW_ALL = True
 
 DATABASES = {
     'default': {
@@ -241,4 +244,8 @@ DATABASES = {
         'HOST': config('DATABASE_HOST'),
         'PORT': config('DATABASE_PORT'),
     }
+}
+
+FEATURE_FLAGS = {
+    'NEGAR_FEATURE_FLAG': strtobool(config('NEGAR_FEATURE_FLAG', default='False')),
 }
